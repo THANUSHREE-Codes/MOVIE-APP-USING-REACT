@@ -1,0 +1,790 @@
+/* 1. GLOBAL VARIABLES */
+:root {
+  --bg-color: #f4f7f6;
+  --card-bg: #ffffff;
+  --text-main: #1a1a1a;
+  --navbar-bg: #111111;
+  --accent: #e50914; /* Red accent */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* DARK MODE OVERRIDES */
+body.dark-mode {
+  --bg-color: #0f0f0f;
+  --card-bg: #1e1e1e;
+  --text-main: #ffffff;
+  --navbar-bg: #000000;
+}
+
+/* 2. BASE STYLES */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Navbar Wrapper */
+.navbar {
+  background-color: var(--navbar-bg);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  transition: background 0.3s ease;
+}
+
+/* Inner Container to keep content centered */
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* This pushes logo left and menu right */
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Logo Styling */
+.nav-logo a {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav-logo span {
+  color: #e50914; /* Red Highlight */
+}
+
+/* Menu and Links */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Spacing between Home, Favorites, and Toggle */
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #e50914;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 4. MAIN CONTAINER & SEARCH */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: 2px solid #ddd;
+  font-size: 16px;
+  margin: 20px 0;
+  background: var(--card-bg);
+  color: var(--text-main);
+}
+
+/* 5. MOVIE GRID LAYOUT */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* 6. MOVIE CARD STYLING */
+.movie-card img {
+  min-height: 300px !important;
+  min-width: 200px !important;
+  background-color: grey !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.movie-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-muted); /* This uses the variable from our dark mode setup */
+  margin: 10px 0;
+}
+
+.rating {
+  font-weight: bold;
+  color: #f1c40f; /* Gold color for the star */
+}
+
+.movie-info h3 {
+  height: 2.4em; /* Keeps titles aligned even if they are long */
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.movie-card:hover {
+  transform: translateY(-10px);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.movie-info {
+  padding: 12px;
+  background: var(--card-bg);
+}
+
+.movie-info h3 {
+  font-size: 1rem;
+  margin: 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 7. FAVORITE BUTTON
+.fav-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+} */
+
+/* .fav-btn:hover {
+  filter: brightness(1.2);
+} */
+.movie-card img {
+  width: 100%;
+  height: 300px; /* Fixed height is better for consistency */
+  display: block; /* Removes bottom whitespace */
+  object-fit: cover; /* Keeps aspect ratio clean */
+  background-color: #222; /* Placeholder color while loading */
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.image-container {
+  position: relative; /* This allows the button to 'stick' to the image */
+}
+
+.fav-icon-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.fav-icon-btn:hover {
+  transform: scale(1.2);
+}
+
+.movie-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+/* This prevents any image from overflowing its container */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Specific styling for the Movie Details image */
+.details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Allows text to move below image on small screens */
+  gap: 30px;
+  overflow-x: hidden; /* Safety measure to kill horizontal scroll */
+}
+
+.details-image {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px; /* Limits the giant image size */
+}
+
+.details-image img {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.details-info {
+  flex: 2;
+  min-width: 300px;
+}
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden; /* This completely removes the horizontal scrollbar */
+  margin: 0;
+  padding: 0;
+}
+/* 1. The Floating Container */
+.fav-interact-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px); /* Glassmorphism effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 2. Hover Animation: Scale and Rotate */
+.fav-interact-btn:hover {
+  transform: scale(1.2) rotate(10deg);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.4);
+}
+
+/* 3. The Heart Icon Animation */
+.heart-icon {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+}
+
+.fav-interact-btn:hover .heart-icon {
+  transform: scale(1.1);
+}
+
+/* 4. The "Pop" Animation when favorited */
+.fav-interact-btn.active {
+  background: white;
+  animation: heartPop 0.45s ease-out;
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1.2); }
+}
+
+/* 5. Tooltip appearing on Hover */
+.fav-interact-btn::after {
+  content: 'Add to Fav';
+  position: absolute;
+  bottom: -35px;
+  background: #000;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.fav-interact-btn:hover::after {
+  opacity: 1;
+}
+.fav-interact-btn:hover .heart-icon {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+/* 1. Kill Horizontal Scroll */
+.details-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 40px 20px;
+  background-color: var(--bg-color);
+}
+
+/* 2. Responsive Container */
+.details-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Fixes the overflow/scroll issue */
+}
+
+/* 3. Poster Wrapper */
+.details-poster-wrapper {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  position: relative;
+}
+
+.details-img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* 4. THE INTERACTIVE BUTTON */
+.details-fav-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(229, 9, 20, 0.1); /* Subtle Red */
+  color: var(--text-main);
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+/* Hover Interaction */
+.details-fav-btn:hover {
+  transform: translateY(-5px);
+  background: rgba(229, 9, 20, 0.2);
+  box-shadow: 0 10px 20px rgba(229, 9, 20, 0.2);
+}
+
+/* Active Animation (The Pop) */
+.details-fav-btn.active {
+  background: #e50914;
+  color: white;
+  animation: heartPop 0.4s ease;
+}
+
+.heart-icon {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+}
+
+.details-fav-btn:hover .heart-icon {
+  transform: scale(1.3) rotate(-10deg);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* 5. Text Content Styling */
+.details-content {
+  flex: 2;
+  min-width: 300px;
+}
+
+.details-title {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.details-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.details-tagline {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #e50914;
+  margin-bottom: 30px;
+}
+/* ROOT FIX: Prevents the horizontal scroll seen in your screenshot */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.movie-details-page {
+  padding: 60px 5%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-color);
+}
+
+.details-wrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 1100px;
+  gap: 50px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Important: prevents overflow on smaller screens */
+}
+
+/* IMAGE FIX: Prevents image from pushing out of the page */
+.poster-column {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.main-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease;
+}
+
+.main-poster:hover {
+  transform: scale(1.02);
+}
+
+/* CONTENT COLUMN */
+.info-column {
+  flex: 2;
+  min-width: 300px;
+  color: var(--text-main);
+}
+
+.movie-title {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 800;
+}
+
+.movie-tagline {
+  font-style: italic;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  margin: 10px 0 20px 0;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.genre-pill {
+  background: rgba(229, 9, 20, 0.2);
+  color: #e50914;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-right: 10px;
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+/* THE INTERACTIVE BUTTON CSS */
+.interactive-fav-btn {
+  position: relative;
+  margin-top: 30px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  display: inline-block;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.heart-anim {
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effects */
+.interactive-fav-btn:hover {
+  transform: translateY(-3px);
+  background: #333;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.interactive-fav-btn:hover .heart-anim {
+  transform: scale(1.4) rotate(-10deg);
+}
+
+/* Active/Favorited State */
+.interactive-fav-btn.active {
+  background: #e50914;
+  animation: buttonPush 0.4s ease;
+}
+
+.interactive-fav-btn.active:hover {
+  background: #ff0f1b;
+}
+
+/* Button "Pop" Animation */
+@keyframes buttonPush {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+/* ROOT FIX: Prevents the horizontal scroll seen in your screenshot */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.movie-details-page {
+  padding: 60px 5%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-color);
+}
+
+.details-wrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 1100px;
+  gap: 50px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Important: prevents overflow on smaller screens */
+}
+
+/* IMAGE FIX: Prevents image from pushing out of the page */
+.poster-column {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.main-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease;
+}
+
+.main-poster:hover {
+  transform: scale(1.02);
+}
+
+/* CONTENT COLUMN */
+.info-column {
+  flex: 2;
+  min-width: 300px;
+  color: var(--text-main);
+}
+
+.movie-title {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 800;
+}
+
+.movie-tagline {
+  font-style: italic;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  margin: 10px 0 20px 0;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.genre-pill {
+  background: rgba(229, 9, 20, 0.2);
+  color: #e50914;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-right: 10px;
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+/* THE INTERACTIVE BUTTON CSS */
+.interactive-fav-btn {
+  position: relative;
+  margin-top: 30px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  display: inline-block;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.heart-anim {
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effects */
+.interactive-fav-btn:hover {
+  transform: translateY(-3px);
+  background: #333;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.interactive-fav-btn:hover .heart-anim {
+  transform: scale(1.4) rotate(-10deg);
+}
+
+/* Active/Favorited State */
+.interactive-fav-btn.active {
+  background: #e50914;
+  animation: buttonPush 0.4s ease;
+}
+
+.interactive-fav-btn.active:hover {
+  background: #ff0f1b;
+}
+
+/* Button "Pop" Animation */
+@keyframes buttonPush {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+/* Cast Section Styling */
+.cast-section {
+  margin-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.cast-section h3 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.actor-card {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.actor-card:hover {
+  transform: translateY(-5px);
+}
+
+.actor-card img {
+  width: 100%;
+  border-radius: 10px;
+  height: 120px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  margin-bottom: 8px;
+}
+
+.actor-name {
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin: 0;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.character-name {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 2px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
