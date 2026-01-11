@@ -1,33 +1,91 @@
 /* 1. GLOBAL VARIABLES */
-:root {
+/* :root {
   --bg-color: #f4f7f6;
   --card-bg: #ffffff;
   --text-main: #1a1a1a;
   --navbar-bg: #111111;
   --accent: #e50914; /* Red accent */
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --text-muted: #666666;
+} */ 
+ :root {
+  --bg-color: #f4f7f6;
+  --card-bg: #ffffff;
+  --nav-bg: #111111;    /* Dark navbar for light mode */
+  --nav-text: #000000;
+  --text-main: #1a1a1a;
+  --text-muted: #514e4e;
 }
-
-/* DARK MODE OVERRIDES */
 body.dark-mode {
-  --bg-color: #0f0f0f;
+  --bg-color: #121212;
   --card-bg: #1e1e1e;
   --text-main: #ffffff;
-  --navbar-bg: #000000;
+  --nav-bg: #000000;    /* Pitch black navbar for dark mode */
+  --nav-text: #ffffff;
+  --text-muted: #aaaaaa;
 }
-
-/* 2. BASE STYLES */
 body {
+  margin: 0;
+  background-color: var(--bg-color); /* Body background */
+  color: var(--text-main);
+  transition: all 0.3s ease;
+}
+.home-container, .movie-grid, .container {
+  background-color: var(--bg-color) !important;
+  min-height: 100vh;
+}
+/* 2. BASE STYLES */
+/* body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: 'Segoe UI', Roboto, sans-serif;
   transition: all 0.3s ease;
+} */
+/* Center the search bar in the Navbar */
+.nav-search-wrapper {
+  flex: 1;
+  max-width: 400px; /* Limits width so it doesn't touch logo/links */
+  margin: 0 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
+.nav-search-input {
+  width: 100%;
+  padding: 8px 15px 8px 35px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(212, 2, 2, 0.1);
+  color: rgb(92, 0, 0);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.nav-search-input:focus {
+  background: rgba(250, 11, 11, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+/* Responsive: Hide search on very small screens if needed */
+@media (max-width: 600px) {
+  .nav-search-wrapper {
+    display: none; /* Or move it to a second row */
+  }
+}
 /* Navbar Wrapper */
-.navbar {
+/* .navbar {
   background-color: var(--navbar-bg);
   height: 70px;
   display: flex;
@@ -40,38 +98,38 @@ body {
 }
 
 /* Inner Container to keep content centered */
-.nav-container {
+ .nav-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between; /* This pushes logo left and menu right */
-  align-items: center;
-  padding: 0 20px;
-}
+  align-items: center; 
+   padding: 0 20px;
+} 
 
 /* Logo Styling */
-.nav-logo a {
+/* .nav-logo a {
   font-size: 1.8rem;
   font-weight: 900;
   color: white;
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-
+  text-decoration: none; */
+  /* letter-spacing: 1px;
+} */
+/* 
 .nav-logo span {
   color: #e50914; /* Red Highlight */
-}
+/*}
 
 /* Menu and Links */
-.nav-menu {
+/*.nav-menu 
   display: flex;
   align-items: center;
   gap: 25px; /* Spacing between Home, Favorites, and Toggle */
-}
 
+/*
 .nav-link {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
@@ -79,7 +137,66 @@ body {
 }
 
 .nav-link:hover {
-  color: #e50914;
+  color: #000000;
+} */
+ .navbar {
+  background-color: var(--nav-bg);
+  transition: background-color 0.3s ease;
+  /* ... existing height/padding ... */
+  background-color: var(--navbar-bg);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  transition: background 0.3s ease;
+}
+
+.nav-logo a {
+  color: var(--nav-text) !important; /* Forces visibility */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: var(--nav-text) !important; /* Forces visibility */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.nav-logo {
+  flex-shrink: 0; /* Stops logo from squishing */
+}
+
+.nav-search-wrapper {
+  flex: 1; /* Allows search bar to take up available middle space */
+  max-width: 450px;
+  margin: 0 30px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: row; /* Horizontal links */
+  align-items: center;
+  gap: 25px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--accent) !important; /* Highlights red on hover */
+}
+
+/* Fix for the Search Input text inside the Navbar */
+.nav-search-input {
+  background: rgba(137, 2, 2, 0.1);
+  color: rgb(95, 0, 0) !important; /* Search text should stay white on dark nav */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-search-input::placeholder {
+  color: rgba(56, 0, 0, 0.5);
 }
 
 /* Theme Toggle Button */
@@ -115,7 +232,7 @@ body {
   max-width: 500px;
   padding: 12px 25px;
   border-radius: 25px;
-  border: 2px solid #ddd;
+  border: 2px solid #d3c5c5;
   font-size: 16px;
   margin: 20px 0;
   background: var(--card-bg);
@@ -130,8 +247,8 @@ body {
   padding: 20px;
 }
 
-/* 6. MOVIE CARD STYLING */
-.movie-card img {
+/* 6. MOVIE CARD STYLING
+/* .movie-card img {
   min-height: 300px !important;
   min-width: 200px !important;
   background-color: grey !important;
@@ -145,20 +262,20 @@ body {
   align-items: center;
   font-size: 0.9rem;
   color: var(--text-muted); /* This uses the variable from our dark mode setup */
-  margin: 10px 0;
+  /* margin: 10px 0;
 }
 
 .rating {
   font-weight: bold;
   color: #f1c40f; /* Gold color for the star */
-}
 
-.movie-info h3 {
+
+/* .movie-info h3 {
   height: 2.4em; /* Keeps titles aligned even if they are long */
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-.movie-card:hover {
+  /* overflow: hidden;
+  margin-bottom: 5px; */
+
+/* .movie-card:hover {
   transform: translateY(-10px);
 }
 
@@ -171,15 +288,15 @@ body {
 .movie-info {
   padding: 12px;
   background: var(--card-bg);
-}
-
+} */
+/* 
 .movie-info h3 {
   font-size: 1rem;
   margin: 5px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
+} */ 
 
 /* 7. FAVORITE BUTTON
 .fav-btn {
@@ -196,12 +313,37 @@ body {
 /* .fav-btn:hover {
   filter: brightness(1.2);
 } */
-.movie-card img {
+/* .movie-card img {
   width: 100%;
   height: 300px; /* Fixed height is better for consistency */
-  display: block; /* Removes bottom whitespace */
-  object-fit: cover; /* Keeps aspect ratio clean */
-  background-color: #222; /* Placeholder color while loading */
+  /*display: block; /* Removes bottom whitespace 
+  object-fit: cover; /* Keeps aspect ratio clean 
+  background-color: #222; /* Placeholder color while loading */ 
+/* 2. MOVIE CARD FIX (Screenshot 61/62) */
+.movie-card {
+  background-color: var(--card-bg) !important;
+  color: var(--text-main) !important;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.movie-info {
+  padding: 15px;
+  background-color: var(--card-bg) !important; /* Use the variable we set up */
+  color: var(--text-main);
+}
+
+.movie-title {
+  color: var(--text-main) !important; /* Force text to be visible */
+  font-size: 1rem;
+  margin: 0 0 5px 0;
+}
+
+.movie-stats {
+  color: var(--text-muted);
 }
 .card-footer {
   display: flex;
@@ -493,7 +635,7 @@ html, body {
   width: 100%;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 50px rgba(235, 235, 235, 0.5);
   transition: transform 0.5s ease;
 }
 
@@ -744,7 +886,65 @@ html, body {
   margin-bottom: 15px;
   font-size: 1.3rem;
 }
+/* GLOBAL FIX: KILL THE HORIZONTAL SCROLL */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
 
+/* MOVIE GRID */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 25px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* THE RED FAVORITE BUTTON (DETAILS PAGE) */
+.details-fav-btn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 15px;
+  background: #e50914; /* Netflix Red */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.details-fav-btn:hover {
+  background: #ff0f1b; /* Brighter Red */
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
+}
+
+/* LOADING TRIGGER AT BOTTOM */
+.loading-trigger {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #e50914;
+}
+
+/* POSTER IMAGE FIX */
+.main-poster {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 .cast-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -752,7 +952,7 @@ html, body {
   margin-bottom: 30px;
 }
 
-.actor-card {
+/* .actor-card {
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -778,6 +978,32 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+} */
+ /* Ensure posters and profile pics are visible */
+.main-poster, .actor-card img, .image-container img {
+  display: block !important;
+  min-height: 100px;
+  background-color: #222; /* Placeholder color so you know where the image should be */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Specific styling for Actor Profile Photos */
+.actor-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Circular images look better for cast */
+  object-fit: cover;
+  margin: 0 auto 10px;
+  border: 2px solid var(--accent);
+}
+
+/* Specific styling for Movie Posters */
+.main-poster {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  height: auto;
 }
 
 .character-name {
@@ -787,4 +1013,78 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+/* Ensure the card has a dark background if your text is white */
+
+
+
+
+.movie-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Keeps long titles clean */
+}
+
+.movie-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Ensure the image doesn't cover the text */
+.image-container img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+}
+
+.image-container {
+  background-color: #2a2a2a; 
+  aspect-ratio: 2/3; /* Keeps the card size consistent while loading */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+/* Force the text to be visible and colored */
+.movie-info-text {
+  padding: 10px !important;
+  display: block !important;
+  visibility: visible !important;
+  background: #111 !important;
+  z-index: 10;
+}
+
+.card-title {
+  color: #ffffff !important; /* Pure white */
+  font-size: 1rem !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+.card-year {
+  color: #e50914 !important; /* Netflix Red so you can't miss it */
+  font-size: 0.9rem !important;
+  margin-top: 5px !important;
+  display: block !important;
+}
+body {
+  margin: 0;
+  background-color: var(--bg-color); /* This fixes the site background */
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.nav-search-input::placeholder {
+  color: red; /* Change 'red' to any color you want (e.g., #888, blue, etc.) */
+  opacity: 1; /* Ensures the color is vibrant across all browsers */
 }
